@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rancho Cocula — Propuesta Estratégica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&family=Cinzel:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ivory:      #F6F0E6;
+    --sand:       #E8DECA;
+    --gold:       #B8945A;
+    --gold-light: #D4AE7A;
+    --sienna:     #7A4E2D;
+    --charcoal:   #1C1714;
+    --deep:       #120F0D;
+    --mist:       #9E9088;
+    --rule:       rgba(184,148,90,0.28);
+    --rule-light: rgba(184,148,90,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--charcoal);
+    color: var(--ivory);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ─── GRAIN OVERLAY ─────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  /* ─── TYPOGRAPHY ─────────────────────────────────── */
+  .display {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .cinzel {
+    font-family: 'Cinzel', serif;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ─── REVEAL ANIMATION ───────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.12s; }
+  .reveal-delay-2 { transition-delay: 0.24s; }
+  .reveal-delay-3 { transition-delay: 0.38s; }
+  .reveal-delay-4 { transition-delay: 0.52s; }
+  .reveal-delay-5 { transition-delay: 0.66s; }
+
+  /* ─── HORIZONTAL RULE ────────────────────────────── */
+  .rule {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+    margin: 0;
+  }
+  .rule-short {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    display: block;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     COVER
+  ═══════════════════════════════════════════════════ */
+  #cover {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: var(--deep);
+  }
+
+  .cover-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 30%, rgba(184,148,90,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 70% at 10% 80%, rgba(122,78,45,0.15) 0%, transparent 60%),
+      linear-gradient(170deg, #1C1208 0%, #0E0B08 40%, #120F0D 100%);
+  }
+
+  /* Desert horizon glow */
+  .cover-horizon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    background: linear-gradient(to top,
+      rgba(122,78,45,0.22) 0%,
+      rgba(184,148,90,0.08) 30%,
+      transparent 100%);
+  }
+
+  /* Subtle agave silhouette lines */
+  .cover-lines {
+    position: absolute;
+    right: 8%;
+    bottom: 0;
+    width: 320px;
+    height: 60%;
+    opacity: 0.06;
+    background:
+      repeating-linear-gradient(
+        172deg,
+        var(--gold) 0px, var(--gold) 1px,
+        transparent 1px, transparent 28px
+      );
+    transform-origin: bottom right;
+    transform: skewX(-6deg);
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 8vw 9vh;
+    max-width: 900px;
+  }
+
+  .cover-overline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .cover-overline::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4.5rem, 10vw, 9rem);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--ivory);
+    margin-bottom: 0.3em;
+  }
+  .cover-title span {
+    display: block;
+    color: var(--gold-light);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    color: var(--mist);
+    text-transform: uppercase;
+    margin-top: 2.4rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .cover-tags {
+    display: flex;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .cover-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(184,148,90,0.6);
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(184,148,90,0.2);
+  }
+
+  .cover-footer {
+    position: absolute;
+    bottom: 4vh;
+    right: 8vw;
+    z-index: 2;
+    text-align: right;
+  }
+  .cover-footer .label { color: var(--mist); opacity: 0.5; }
+
+  /* ═══════════════════════════════════════════════════
+     SECTION WRAPPER
+  ═══════════════════════════════════════════════════ */
+  .section {
+    padding: 10vmin 8vw;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     SECTION DIVIDER
+  ═══════════════════════════════════════════════════ */
+  .divider {
+    position: relative;
+    background: var(--deep);
+    padding: 11vh 8vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 35vh;
+  }
+
+  .divider-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 50%, rgba(184,148,90,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 5% 50%, rgba(122,78,45,0.1) 0%, transparent 60%);
+  }
+
+  .divider-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(7rem, 18vw, 15rem);
+    font-weight: 300;
+    color: rgba(184,148,90,0.07);
+    position: absolute;
+    right: 6vw;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+  }
+
+  .divider-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+
+  .divider-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .divider-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .divider-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--ivory);
+  }
+  .divider-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .divider-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 200;
+    letter-spacing: 0.08em;
+    color: var(--mist);
+    margin-top: 1.4rem;
+    line-height: 1.9;
+    max-width: 500px;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     VISION SECTION
+  ═══════════════════════════════════════════════════ */
+  #vision {
+    background: #1A1512;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ivory);
+    margin-bottom: 1.6rem;
+  }
+
+  .lead-text {
+    font-size: 1.02rem;
+    font-weight: 300;
+    color: rgba(246,240,230,0.8);
+    line-height: 1.85;
+    max-width: 680px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* pill tags grid */
+  .tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 2.8rem;
+  }
+  .tag-pill {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 0.55rem 1.1rem;
+    border: 1px solid rgba(184,148,90,0.25);
+    background: rgba(184,148,90,0.04);
+    transition: all 0.3s ease;
+  }
+  .tag-pill:hover {
+    background: rgba(184,148,90,0.1);
+    border-color: rgba(184,148,90,0.5);
+  }
+
+  /* ─── TWO-COL LAYOUT ─── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5vw;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .two-col { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     BOLD STATEMENT
+  ═══════════════════════════════════════════════════ */
+  .bold-statement {
+    background: var(--charcoal);
+    padding: 8vh 8vw;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .statement-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.35;
+    color: var(--ivory);
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+  .statement-text strong {
+    font-weight: 400;
+    color: var(--gold-light);
+    font-style: normal;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     CONTENT BLOCKS
+  ═══════════════════════════════════════════════════ */
+  .content-block {
+    background: rgba(184,148,90,0.04);
+    border: 1px solid var(--rule-light);
+    padding: 3rem 3.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .content-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 100%;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    opacity: 0.5;
+  }
+  .content-block:hover { border-color: rgba(184,148,90,0.35); }
+
+  .block-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.4rem;
+  }
+
+  .block-body {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: rgba(246,240,230,0.75);
+    line-height: 1.9;
+  }
+
+  /* Bullet list style */
+  .elegant-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 2.5rem;
+    margin-top: 1.2rem;
+  }
+  .elegant-list li {
+    font-size: 0.76rem;
+    font-weight: 300;
+    color: rgba(246,240,230,0.7);
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    line-height: 1.6;
+  }
+  .elegant-list li::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     AWARENESS LEVELS
+  ═══════════════════════════════════════════════════ */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5px;
+    background: var(--rule);
+    margin-top: 3.5rem;
+  }
+  @media (max-width: 820px) {
+    .levels-grid { grid-template-columns: 1fr; }
+  }
+
+  .level-card {
+    background: #1A1512;
+    padding: 3.5rem 2.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .level-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .level-card:hover::after { opacity: 0.6; }
+
+  .level-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: rgba(184,148,90,0.1);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.04em;
+  }
+
+  .level-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .level-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--ivory);
+    line-height: 1.2;
+    margin-bottom: 1.4rem;
+  }
+
+  .level-obj {
+    font-size: 0.7rem;
+    font-weight: 200;
+    letter-spacing: 0.06em;
+    color: var(--mist);
+    margin-top: 1.8rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--rule-light);
+    font-style: italic;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     FUNNEL FLOW
+  ═══════════════════════════════════════════════════ */
+  .funnel-section {
+    background: var(--deep);
+    padding: 9vh 8vw;
+  }
+
+  .funnel-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .funnel-step {
+    text-align: center;
+    position: relative;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .funnel-dot {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(184,148,90,0.4);
+    border-radius: 50%;
+    background: rgba(184,148,90,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    transition: all 0.3s;
+  }
+  .funnel-step:hover .funnel-dot {
+    background: rgba(184,148,90,0.16);
+    border-color: var(--gold);
+  }
+
+  .funnel-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  .funnel-arrow {
+    width: 36px;
+    height: 1px;
+    background: linear-gradient(to right, rgba(184,148,90,0.3), rgba(184,148,90,0.6));
+    position: relative;
+    flex-shrink: 0;
+    margin-bottom: 2.8rem;
+  }
+  .funnel-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid rgba(184,148,90,0.6);
+    border-top: 1px solid rgba(184,148,90,0.6);
+    transform: rotate(45deg);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     INVESTMENT SECTION
+  ═══════════════════════════════════════════════════ */
+  .investment-hero {
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 13vh 8vw;
+  }
+
+  .investment-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, rgba(184,148,90,0.1) 0%, transparent 65%);
+  }
+
+  .investment-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5rem, 14vw, 11rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ivory);
+    position: relative;
+    z-index: 2;
+  }
+  .investment-amount sup {
+    font-size: 0.35em;
+    vertical-align: super;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    font-family: 'Cinzel', serif;
+    font-weight: 300;
+  }
+
+  .investment-label-top {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .investment-note {
+    font-size: 0.72rem;
+    font-weight: 200;
+    color: var(--mist);
+    letter-spacing: 0.1em;
+    margin-top: 1.8rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ETAPA PRICE CARDS
+  ═══════════════════════════════════════════════════ */
+  .etapas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--rule);
+    margin-top: 1.5px;
+  }
+  @media (max-width: 720px) {
+    .etapas-grid { grid-template-columns: 1fr; }
+  }
+
+  .etapa-card {
+    background: #181411;
+    padding: 3.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .etapa-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .etapa-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    font-weight: 300;
+    color: var(--ivory);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+
+  .etapa-card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin: 1.4rem 0 1.8rem;
+    letter-spacing: -0.02em;
+  }
+  .etapa-card-price sup {
+    font-size: 0.4em;
+    vertical-align: super;
+    font-family: 'Cinzel', serif;
+    font-weight: 300;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+  }
+
+  .etapa-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--rule-light);
+    margin-bottom: 1.8rem;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     PAYMENT OPTIONS
+  ═══════════════════════════════════════════════════ */
+  .payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+  @media (max-width: 720px) {
+    .payment-grid { grid-template-columns: 1fr; }
+  }
+
+  .payment-card {
+    border: 1px solid var(--rule);
+    padding: 2.8rem 2.5rem;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .payment-card:hover { border-color: rgba(184,148,90,0.45); }
+
+  .payment-opt {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .payment-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--ivory);
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .payment-detail {
+    font-size: 0.75rem;
+    font-weight: 200;
+    color: rgba(246,240,230,0.65);
+    line-height: 1.85;
+    letter-spacing: 0.04em;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     CONSIDERATIONS
+  ═══════════════════════════════════════════════════ */
+  .consideration-item {
+    display: flex;
+    gap: 2rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--rule-light);
+    align-items: flex-start;
+  }
+  .consideration-item:last-child { border-bottom: none; }
+
+  .consideration-icon {
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(184,148,90,0.3);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.15rem;
+  }
+  .consideration-icon::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.7;
+  }
+
+  .consideration-text {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: rgba(246,240,230,0.7);
+    line-height: 1.85;
+    letter-spacing: 0.03em;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     CLOSING PAGE
+  ═══════════════════════════════════════════════════ */
+  #closing {
+    min-height: 80vh;
+    background: var(--deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 10vh 8vw;
+  }
+
+  .closing-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 50%, rgba(184,148,90,0.09) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(122,78,45,0.12) 0%, transparent 50%);
+  }
+
+  .closing-content {
+    position: relative;
+    z-index: 2;
+    max-width: 740px;
+  }
+
+  .closing-word {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ivory);
+    margin-bottom: 0.2em;
+  }
+  .closing-word em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .closing-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    color: var(--mist);
+    text-transform: uppercase;
+    margin-top: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .closing-by {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(246,240,230,0.4);
+    letter-spacing: 0.08em;
+  }
+  .closing-by strong {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--gold);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     PROGRESS INDICATOR
+  ═══════════════════════════════════════════════════ */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--sienna), var(--gold), var(--gold-light));
+    z-index: 1000;
+    transition: width 0.1s linear;
+  }
+
+  /* ─── Misc utility ─── */
+  .mt-sm { margin-top: 1.5rem; }
+  .mt-md { margin-top: 2.8rem; }
+  .mt-lg { margin-top: 4.5rem; }
+  .text-mist { color: var(--mist); }
+
+  /* soporte grid */
+  .soporte-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5px;
+    background: var(--rule);
+    margin-top: 3.5rem;
+  }
+  .soporte-item {
+    background: #1A1512;
+    padding: 2.5rem 2rem;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: rgba(246,240,230,0.7);
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    position: relative;
+  }
+  .soporte-item::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+</style>
+</head>
+
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══════════ COVER ═══════════ -->
+<section id="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-horizon"></div>
+  <div class="cover-lines"></div>
+
+  <div class="cover-content">
+    <div class="cover-overline reveal">Propuesta Estratégica</div>
+    <h1 class="cover-title reveal reveal-delay-1">
+      Rancho<br>
+      <span>Cocula</span>
+    </h1>
+    <p class="cover-subtitle reveal reveal-delay-2">Baja California Sur, México</p>
+    <div class="cover-tags reveal reveal-delay-3">
+      <span class="cover-tag">Prelanzamiento</span>
+      <span class="cover-tag">Branding</span>
+      <span class="cover-tag">Campañas</span>
+      <span class="cover-tag">Posicionamiento</span>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="label reveal reveal-delay-4">Camaleão Intelligence™</div>
+  </div>
+</section>
+
+<!-- ═══════════ VISION ═══════════ -->
+<section class="section" id="vision">
+  <div class="section-inner">
+    <div class="section-label reveal">Visión General</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      No se trata de contenido.<br>Se trata de percepción.
+    </h2>
+
+    <p class="lead-text reveal reveal-delay-2">
+      El objetivo de esta estrategia es construir una percepción sólida, emocional y aspiracional alrededor de Rancho Cocula antes del evento de venta, creando una audiencia conectada con la visión del proyecto y aumentando el potencial de conversión.
+    </p>
+
+    <div class="rule reveal reveal-delay-3"></div>
+
+    <div class="tags-grid reveal reveal-delay-3">
+      <span class="tag-pill">branding visual</span>
+      <span class="tag-pill">dirección creativa</span>
+      <span class="tag-pill">storytelling cinematográfico</span>
+      <span class="tag-pill">campañas emocionales</span>
+      <span class="tag-pill">captación de leads</span>
+      <span class="tag-pill">preventa</span>
+      <span class="tag-pill">remarketing</span>
+      <span class="tag-pill">posicionamiento digital</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BOLD STATEMENT ═══════════ -->
+<div class="bold-statement">
+  <p class="statement-text reveal">
+    "La estrategia no será solamente generar contenido visual.<br>
+    Será construir una <strong>narrativa estratégica y emocional</strong><br>
+    alrededor de Rancho Cocula."
+  </p>
+</div>
+
+<!-- ═══════════ DIRECCION ESTRATEGICA ═══════════ -->
+<section class="section" style="background: #1A1512;">
+  <div class="section-inner">
+    <div class="section-label reveal">Dirección Estratégica</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Donde el branding<br><em style="font-style:italic; color:var(--gold-light);">se convierte en ventas.</em>
+    </h2>
+
+    <div class="two-col mt-md">
+      <div>
+        <div class="content-block reveal">
+          <div class="block-title">Enfoque Central</div>
+          <ul class="elegant-list">
+            <li>percepción de marca</li>
+            <li>psicología de conversión</li>
+            <li>construcción de deseo</li>
+            <li>posicionamiento aspiracional</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="content-block reveal reveal-delay-1">
+          <div class="block-title">Dimensión Emocional</div>
+          <ul class="elegant-list">
+            <li>storytelling emocional</li>
+            <li>comportamiento del consumidor</li>
+            <li>conexión branding–ventas</li>
+            <li>narrativa cinematográfica</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DIVIDER — ETAPA 1 ═══════════ -->
+<div class="divider">
+  <div class="divider-bg"></div>
+  <div class="divider-num reveal">01</div>
+  <div class="divider-content">
+    <div class="divider-label reveal">Primera Etapa</div>
+    <h2 class="divider-title reveal reveal-delay-1">
+      Brand Base &<br><em>Estructuración Visual</em>
+    </h2>
+    <p class="divider-desc reveal reveal-delay-2">
+      Crear una base visual sólida y coherente para fortalecer la percepción del proyecto antes de escalar campañas publicitarias.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════ ETAPA 1 CONTENT ═══════════ -->
+<section class="section" style="background: #1C1916;">
+  <div class="section-inner">
+
+    <div class="two-col">
+      <div>
+        <div class="label reveal" style="margin-bottom:1.5rem;">Incluye</div>
+        <ul class="elegant-list reveal reveal-delay-1">
+          <li>alineación visual estratégica</li>
+          <li>estructura inicial del Instagram</li>
+          <li>adaptación y refinamiento del branding</li>
+          <li>diseño visual del feed</li>
+          <li>highlights / stories destacados</li>
+          <li>percepción premium</li>
+          <li>coherencia visual campañas–perfil</li>
+          <li>estructura inicial de contenido</li>
+          <li>identidad cinematográfica</li>
+          <li>primeras publicaciones estratégicas</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="content-block reveal reveal-delay-1">
+          <div class="block-title">Desarrollo Visual</div>
+          <div class="block-body">
+            El objetivo de esta etapa es que cualquier persona que llegue desde anuncios o campañas perciba:
+          </div>
+          <ul class="elegant-list" style="margin-top:1rem;">
+            <li>confianza</li>
+            <li>exclusividad</li>
+            <li>profesionalismo</li>
+            <li>visión clara de marca</li>
+            <li>conexión emocional</li>
+          </ul>
+        </div>
+
+        <div class="content-block reveal reveal-delay-2" style="background: rgba(184,148,90,0.07); border-color: rgba(184,148,90,0.35);">
+          <div class="block-title" style="color: var(--gold-light);">Inicio Inmediato</div>
+          <div class="block-body" style="color: rgba(246,240,230,0.85);">
+            Una vez aprobada la dirección estratégica y visual previamente presentada, esta etapa puede comenzar de forma <strong style="color:var(--ivory); font-weight:400;">inmediata</strong> — permitiendo iniciar rápidamente la estructuración visual del perfil y las primeras publicaciones estratégicas de Instagram.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ DIVIDER — ETAPA 2 ═══════════ -->
+<div class="divider">
+  <div class="divider-bg"></div>
+  <div class="divider-num reveal">02</div>
+  <div class="divider-content">
+    <div class="divider-label reveal">Segunda Etapa</div>
+    <h2 class="divider-title reveal reveal-delay-1">
+      Precalentamiento &<br><em>Construcción de Audiencia</em>
+    </h2>
+    <p class="divider-desc reveal reveal-delay-2">
+      Construir deseo, percepción y conexión emocional antes de trabajar campañas de conversión directa.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════ NIVELES ═══════════ -->
+<section style="background: #181411; padding: 0 0 0;">
+  <div style="padding: 6vh 8vw 0;">
+    <div class="section-inner">
+      <div class="section-label reveal">Estrategia por Niveles de Conciencia</div>
+    </div>
+  </div>
+
+  <div class="levels-grid">
+    <!-- NIVEL 1 -->
+    <div class="level-card reveal">
+      <div class="level-num">01</div>
+      <div class="level-name">Nivel 1</div>
+      <div class="level-title">Aspiracional</div>
+      <ul class="elegant-list">
+        <li>lifestyle</li>
+        <li>naturaleza</li>
+        <li>libertad</li>
+        <li>privacidad</li>
+        <li>comunidad</li>
+        <li>visión de vida</li>
+        <li>conexión emocional</li>
+      </ul>
+      <div class="level-obj">Objetivo — Generar percepción y curiosidad.</div>
+    </div>
+
+    <!-- NIVEL 2 -->
+    <div class="level-card reveal reveal-delay-1">
+      <div class="level-num">02</div>
+      <div class="level-name">Nivel 2</div>
+      <div class="level-title">Interés &<br>Oportunidad</div>
+      <ul class="elegant-list">
+        <li>inversión</li>
+        <li>exclusividad</li>
+        <li>acceso anticipado</li>
+        <li>oportunidad</li>
+        <li>preventa</li>
+        <li>comunidad privada</li>
+        <li>estilo de vida</li>
+      </ul>
+      <div class="level-obj">Objetivo — Aumentar deseo y percepción de valor.</div>
+    </div>
+
+    <!-- NIVEL 3 -->
+    <div class="level-card reveal reveal-delay-2">
+      <div class="level-num">03</div>
+      <div class="level-name">Nivel 3</div>
+      <div class="level-title">Acción &<br>Captación</div>
+      <ul class="elegant-list">
+        <li>lista VIP</li>
+        <li>beneficios exclusivos</li>
+        <li>acceso prioritario</li>
+        <li>preventa limitada</li>
+        <li>urgencia estratégica</li>
+        <li>remarketing emocional</li>
+      </ul>
+      <div class="level-obj">Objetivo — Captar leads y preparar conversión.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FLUJO ESTRATÉGICO ═══════════ -->
+<div class="funnel-section">
+  <div style="max-width:920px; margin:0 auto;">
+    <div class="section-label reveal">Flujo Estratégico</div>
+    <h3 class="section-title reveal reveal-delay-1" style="font-size:clamp(1.8rem,4vw,3rem);">Del primer contacto<br>a la conversión.</h3>
+
+    <div class="funnel-flow reveal reveal-delay-2">
+      <div class="funnel-step">
+        <div class="funnel-dot">AD</div>
+        <div class="funnel-label">Campañas</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="funnel-dot">IG</div>
+        <div class="funnel-label">Instagram</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="funnel-dot">WA</div>
+        <div class="funnel-label">WhatsApp</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="funnel-dot">VIP</div>
+        <div class="funnel-label">Grupo VIP</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="funnel-dot">RM</div>
+        <div class="funnel-label">Remarketing</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="funnel-dot">EV</div>
+        <div class="funnel-label">Evento</div>
+      </div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-step">
+        <div class="funnel-dot" style="border-color:rgba(184,148,90,0.7); background:rgba(184,148,90,0.12);">✦</div>
+        <div class="funnel-label" style="color:var(--gold);">Conversión</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ DIVIDER — ETAPA 3 ═══════════ -->
+<div class="divider">
+  <div class="divider-bg"></div>
+  <div class="divider-num reveal">03</div>
+  <div class="divider-content">
+    <div class="divider-label reveal">Tercera Etapa</div>
+    <h2 class="divider-title reveal reveal-delay-1">
+      Producción Audiovisual<br><em>& Contenido</em>
+    </h2>
+    <p class="divider-desc reveal reveal-delay-2">
+      Desarrollar una narrativa cinematográfica y emocional para fortalecer percepción, engagement y conversión.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════ ETAPA 3 CONTENT ═══════════ -->
+<section class="section" style="background: #1C1916;">
+  <div class="section-inner">
+
+    <div class="two-col">
+      <div>
+        <div class="label reveal" style="margin-bottom:1.5rem;">Incluye</div>
+        <ul class="elegant-list reveal reveal-delay-1">
+          <li>videos cinematográficos</li>
+          <li>storytelling visual</li>
+          <li>anuncios aspiracionales</li>
+          <li>campañas visuales</li>
+          <li>contenido para Meta Ads</li>
+          <li>piezas estáticas</li>
+          <li>copies estratégicos</li>
+          <li>dirección visual y emocional</li>
+          <li>campañas de captación</li>
+          <li>campañas de conversión</li>
+          <li>contenido estratégico para Instagram</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="content-block reveal reveal-delay-1">
+          <div class="block-title">Producción Estimada</div>
+          <ul class="elegant-list">
+            <li>hasta 6 videos cinematográficos</li>
+            <li>piezas visuales para campañas</li>
+            <li>anuncios estáticos</li>
+            <li>contenido para Instagram</li>
+            <li>campañas aspiracionales</li>
+            <li>campañas de captación y conversión</li>
+          </ul>
+        </div>
+
+        <div class="content-block reveal reveal-delay-2">
+          <div class="block-title">Desarrollo Narrativo</div>
+          <div class="block-body">
+            Cada campaña y pieza audiovisual será desarrollada a partir de una estructura emocional y estratégica alineada con la visión del proyecto, el perfil ideal de comprador y el storytelling cinematográfico de Rancho Cocula.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ DIVIDER — ETAPA 4 ═══════════ -->
+<div class="divider">
+  <div class="divider-bg"></div>
+  <div class="divider-num reveal">04</div>
+  <div class="divider-content">
+    <div class="divider-label reveal">Cuarta Etapa</div>
+    <h2 class="divider-title reveal reveal-delay-1">
+      Conversión<br><em>& Evento</em>
+    </h2>
+    <p class="divider-desc reveal reveal-delay-2">
+      Incrementar urgencia, deseo y conversión conforme se acerque la fecha del evento de preventa.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════ ETAPA 4 CONTENT ═══════════ -->
+<section class="section" style="background: #1A1512;">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <div class="label reveal" style="margin-bottom:1.5rem;">Incluye</div>
+        <ul class="elegant-list reveal reveal-delay-1">
+          <li>campañas de urgencia</li>
+          <li>mensajes de escasez</li>
+          <li>anuncios de preventa final</li>
+          <li>creativos comerciales</li>
+          <li>reforzamiento emocional</li>
+          <li>contenido orientado a conversión</li>
+          <li>campañas de cierre</li>
+        </ul>
+      </div>
+      <div>
+        <div class="content-block reveal reveal-delay-1" style="background:rgba(184,148,90,0.06); border-color:rgba(184,148,90,0.3);">
+          <div class="block-title">Objetivo de Etapa</div>
+          <div class="block-body" style="color: rgba(246,240,230,0.85); font-size: 0.88rem; line-height: 1.9;">
+            Crear el ambiente emocional y comercial ideal para que la audiencia construida durante las etapas anteriores tome una decisión de compra con convicción, urgencia y deseo genuino.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SOPORTE ESTRATÉGICO ═══════════ -->
+<section class="section" style="background: var(--charcoal);">
+  <div class="section-inner">
+    <div class="section-label reveal">Soporte Estratégico</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Acompañamiento durante<br>todo el proceso.
+    </h2>
+
+    <div class="soporte-grid reveal reveal-delay-2">
+      <div class="soporte-item">alineación visual</div>
+      <div class="soporte-item">coherencia narrativa</div>
+      <div class="soporte-item">adaptación de campañas</div>
+      <div class="soporte-item">optimización de percepción de marca</div>
+      <div class="soporte-item">refinamiento de comunicación y conversión</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INVESTMENT HERO ═══════════ -->
+<div class="investment-hero">
+  <div class="investment-hero-bg"></div>
+  <div class="investment-label-top reveal">Inversión Total del Proyecto</div>
+  <div class="investment-amount reveal reveal-delay-1"><sup>USD</sup> 2.400</div>
+  <div class="investment-note reveal reveal-delay-2">
+    Inversión en Meta Ads / tráfico pago no incluida en esta propuesta.
+  </div>
+</div>
+
+<!-- ═══════════ PLAN POR ETAPAS ═══════════ -->
+<div class="rule"></div>
+<div class="etapas-grid">
+
+  <div class="etapa-card reveal">
+    <span class="etapa-card-num">Etapa 01</span>
+    <div class="etapa-card-title">Brand Base &<br>Estructuración Visual</div>
+    <div class="etapa-card-price"><sup>USD</sup> 500</div>
+    <div class="etapa-rule"></div>
+    <ul class="elegant-list">
+      <li>estructura visual inicial del Instagram</li>
+      <li>branding base</li>
+      <li>highlights / stories destacados</li>
+      <li>alineación estratégica visual</li>
+      <li>diseño inicial del feed</li>
+      <li>percepción premium</li>
+      <li>coherencia visual campañas–perfil</li>
+      <li>primeras publicaciones estratégicas</li>
+    </ul>
+  </div>
+
+  <div class="etapa-card reveal reveal-delay-1">
+    <span class="etapa-card-num">Etapa 02</span>
+    <div class="etapa-card-title">Precalentamiento &<br>Construcción de Audiencia</div>
+    <div class="etapa-card-price"><sup>USD</sup> 700</div>
+    <div class="etapa-rule"></div>
+    <ul class="elegant-list">
+      <li>estrategia de captación</li>
+      <li>campañas aspiracionales</li>
+      <li>estructura de preventa</li>
+      <li>estrategia de lista VIP</li>
+      <li>mensajes emocionales</li>
+      <li>estructura de remarketing</li>
+      <li>storytelling estratégico</li>
+      <li>campañas de percepción y deseo</li>
+    </ul>
+  </div>
+
+  <div class="etapa-card reveal">
+    <span class="etapa-card-num">Etapa 03</span>
+    <div class="etapa-card-title">Producción Audiovisual<br>& Contenido</div>
+    <div class="etapa-card-price"><sup>USD</sup> 900</div>
+    <div class="etapa-rule"></div>
+    <ul class="elegant-list">
+      <li>hasta 6 videos cinematográficos</li>
+      <li>anuncios visuales</li>
+      <li>storytelling emocional</li>
+      <li>piezas visuales para Meta Ads</li>
+      <li>campañas aspiracionales</li>
+      <li>campañas de captación</li>
+      <li>contenido estratégico para Instagram</li>
+      <li>dirección creativa audiovisual</li>
+    </ul>
+  </div>
+
+  <div class="etapa-card reveal reveal-delay-1">
+    <span class="etapa-card-num">Etapa 04</span>
+    <div class="etapa-card-title">Conversión<br>& Evento</div>
+    <div class="etapa-card-price"><sup>USD</sup> 300</div>
+    <div class="etapa-rule"></div>
+    <ul class="elegant-list">
+      <li>campañas de urgencia</li>
+      <li>anuncios de preventa final</li>
+      <li>mensajes de escasez</li>
+      <li>creativos de conversión</li>
+      <li>reforzamiento visual y emocional</li>
+      <li>campañas de cierre</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ═══════════ FORMAS DE PAGO ═══════════ -->
+<section class="section" style="background: #1A1512;">
+  <div class="section-inner">
+    <div class="section-label reveal">Formas de Pago</div>
+    <h2 class="section-title reveal reveal-delay-1">Flexibilidad para<br>comenzar hoy.</h2>
+
+    <div class="payment-grid">
+      <div class="payment-card reveal reveal-delay-1">
+        <div class="payment-opt">Opción 1</div>
+        <div class="payment-title">Pago General</div>
+        <div class="payment-detail">
+          50% inicial para inicio del proyecto.<br>
+          50% restante antes de la entrega final de la última etapa.
+        </div>
+      </div>
+      <div class="payment-card reveal reveal-delay-2">
+        <div class="payment-opt">Opción 2</div>
+        <div class="payment-title">Pago por Etapas</div>
+        <div class="payment-detail">
+          Pago dividido conforme avance cada etapa del proyecto, permitiendo distribuir la inversión a lo largo del proceso estratégico.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONSIDERACIONES ═══════════ -->
+<section class="section" style="background: var(--charcoal);">
+  <div class="section-inner">
+    <div class="section-label reveal">Consideraciones Importantes</div>
+
+    <div class="mt-md">
+      <div class="consideration-item reveal">
+        <div class="consideration-icon"></div>
+        <div class="consideration-text">
+          El cronograma final será definido después de recibir: fecha oficial del evento, presupuesto publicitario, objetivos comerciales, estructura de preventa y formato digital o presencial del evento.
+        </div>
+      </div>
+
+      <div class="consideration-item reveal reveal-delay-1">
+        <div class="consideration-icon"></div>
+        <div class="consideration-text">
+          Algunas estrategias de posicionamiento, captación y remarketing requieren tiempo de optimización para generar mejores resultados y métricas más consistentes.
+        </div>
+      </div>
+
+      <div class="consideration-item reveal reveal-delay-2">
+        <div class="consideration-icon"></div>
+        <div class="consideration-text">
+          La inversión en Meta Ads / tráfico pago no está incluida dentro de esta propuesta.
+        </div>
+      </div>
+
+      <div class="consideration-item reveal reveal-delay-3">
+        <div class="consideration-icon"></div>
+        <div class="consideration-text">
+          La estrategia podrá adaptarse dependiendo del comportamiento de audiencia, captación de leads, rendimiento de campañas y evolución comercial del proyecto.
+        </div>
+      </div>
+
+      <div class="consideration-item reveal reveal-delay-4">
+        <div class="consideration-icon"></div>
+        <div class="consideration-text">
+          Esta propuesta contempla el alcance estratégico y creativo descrito. Solicitudes adicionales o expansiones fuera del alcance original podrán ajustarse separadamente.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<section id="closing">
+  <div class="closing-bg"></div>
+  <div class="closing-content">
+    <div class="closing-word reveal">
+      Rancho<br><em>Cocula</em>
+    </div>
+    <div class="closing-sub reveal reveal-delay-1">
+      Branding · Estrategia · Posicionamiento · Prelanzamiento
+    </div>
+    <div class="closing-by reveal reveal-delay-2">
+      Desarrollado por <strong>Camaleão Intelligence™</strong>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll progress
+  const bar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Cover immediate reveal
+  document.querySelectorAll('#cover .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 200 + i * 180);
+  });
+</script>
+
+</body>
+</html>
